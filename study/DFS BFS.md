@@ -152,7 +152,69 @@ graph = [
 visited = [False] * 9
 
 # DFS 메서드 정의 (재귀적)
+def DFS(graph, v, visted):
+	# 현재 노드를 방문 처리
+	visited[v] = True
+	print(v, end=' ')
+
+	for i in graph[v]:
+		if not visited[i]:
+			DFS(graph, i, visted)
+```
 
 
+---
 
+
+### BFS (Breadth Firsh Search, 너비 우선 탐색)
+
+그래프 탐색 시 가까운 노드를 우선적으로 탐색하는 알고리즘.
+큐 자료구조 혹은 재귀함수를 활용.
+
+동작 과정
+
+1. 탐색 시작 노드를 큐에 삽입 후 방문 처리.
+2. 큐에서 노드를 꺼낸 뒤에 해당 노드의 인접 노드 중에서 방문하지 않은 노드를 모두 큐에 삽입하고 방문 처리.
+3. 더 이상 2번의 과정을 반복할 수 없을 때까지 반복.
+
+![](https://i.imgur.com/UBpwtG3.png)
+
+각 간선의 비용이 모두 동일하다면 '최단거리 문제'를 해결하는데 BFS를 사용할 수 있다.
+
+```python
+from collections import deque
+
+# BFS 메서드 정의
+def BFS(graph, start, visited):
+
+	# deque를 사용해 큐 구현
+	queue = deque([start])
+
+	# 현재 노드를 방문 처리
+	visited[start] = True
+
+	# 큐가 빌 때까지 반복
+	while queue:
+		v = queue.popleft()
+		print(v, end=' ')
+		for i in graph[v]:
+			if not visited[i]:
+				queue.append(i)
+				visited[i] = True
+
+# 각 노드의 연결 정보
+graph = [
+	[],
+	[2, 3, 8],
+	[1, 7],
+	[1, 4, 5],
+	[3, 5],
+	[3, 4],
+	[7],
+	[2, 6, 8],
+	[1, 7]
+]
+
+# 각 노드의 방문 여부 정보
+visited = [False] * 9
 ```
