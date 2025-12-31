@@ -22,9 +22,13 @@ async function main() {
 
   // 2. 프롬프트 구성
   const prompt = `
-다음 git diff를 분석해서 한 줄 커밋 메시지를 작성해줘.
-변경사항은 개인 학습 기록이다.
-자연스러운 한국어로 작성해줘.
+Analyze the following git diff and generate a concise, imperative English git commit message.
+
+Rules:
+- Use a single short sentence
+- Use the imperative mood (e.g., "Add", "Fix", "Update")
+- Do not include punctuation at the end
+- Do not mention "git diff" or file names unless necessary
 
 git diff:
 ${diff}
