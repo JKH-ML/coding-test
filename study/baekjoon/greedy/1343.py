@@ -90,3 +90,18 @@ print(sol(a))
 # parts = '.'.join(parts)
 # print(parts)
 # print(s)
+
+# 간단한 솔루션
+# import sys
+
+# # 입력 받기
+# board = sys.stdin.readline().rstrip()
+
+# board = board.replace('XXXX', 'AAAA')
+
+# board = board.replace('XX', 'BB')
+
+# if 'X' in board:
+#     print(-1)
+# else:
+#     print(board)
