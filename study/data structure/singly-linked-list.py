@@ -3,73 +3,71 @@ class Node:
         self.data = data
         self.next = None
 
-
 class LinkedList:
     def __init__(self):
         self.head = None
 
+    # 리스트 끝에 노드 추가
     def append(self, data):
-        """리스트의 끝에 노드 추가"""
-        new_node = Node(data)
-        if self.head is None:
-            self.head = new_node
+        if not self.head:
+            self.head = Node(data)
             return
-
+        
         current = self.head
         while current.next:
             current = current.next
-        current.next = new_node
+        current.next = Node(data)
 
-    def prepend(self, data):
-        """리스트의 앞에 노드 추가"""
-        new_node = Node(data)
-        new_node.next = self.head
-        self.head = new_node
-
-    def delete(self, data):
-        """특정 값을 가진 첫 번째 노드 삭제"""
+    # 리스트 출력
+    def display(self):
+        nodes = []
+        current = self.head
+        while current:
+            nodes.append(str(current.data))
+            current = current.next
+        print(" -> ".join(nodes) + " -> None")
+        
+        # 특정 값을 가진 노드 삭제
+    def delete(self, key):
         current = self.head
 
-        if current and current.data == data:
+        # 1. 머리 노드(head)가 삭제할 대상인 경우
+        if current and current.data == key:
             self.head = current.next
+            current = None
             return
 
+        # 2. 삭제할 노드 찾기
         prev = None
-        while current and current.data != data:
+        while current and current.data != key:
             prev = current
             current = current.next
 
-        if current is None:
-            return  # 값이 없는 경우
+        # 찾는 값이 없는 경우
+        if not current:
+            return
 
+        # 연결 끊기
         prev.next = current.next
+        current = None
 
-    def find(self, data):
-        """값이 존재하는지 탐색"""
+    # 특정 값 검색
+    def search(self, key):
         current = self.head
         while current:
-            if current.data == data:
+            if current.data == key:
                 return True
             current = current.next
         return False
+    
+sll = LinkedList()
+sll.append(10)
+sll.append(20)
+sll.append(30)
 
-    def display(self):
-        """리스트 출력"""
-        elements = []
-        current = self.head
-        while current:
-            elements.append(str(current.data))
-            current = current.next
-        print(" -> ".join(elements))
+sll.display()  # 출력: 10 -> 20 -> 30 -> None
 
-ll = LinkedList()
-ll.append(1)
-ll.append(2)
-ll.append(3)
-ll.prepend(0)
+print(sll.search(20))  # 출력: True
 
-ll.display()      # 0 -> 1 -> 2 -> 3
-print(ll.find(2)) # True
-
-ll.delete(2)
-ll.display()      # 0 -> 1 -> 3
+sll.delete(20)
+sll.display()  # 출력: 10 -> 30 -> None
